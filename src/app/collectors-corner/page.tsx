@@ -113,46 +113,52 @@ function BrassDivider() {
 // ── Data ────────────────────────────────────
 const COLLECTION = [
   {
-    name: "Colt Python",
-    era: "1955-2005",
-    note: "Original royal blue finish. The snake gun that started the collector craze.",
-    value: "$4,500",
-    daily: "$90/day",
-  },
-  {
     name: "IMI UZI",
-    era: "Pre-ban Import",
-    note: "Original Israeli manufacture. Once the ban hit, these stopped coming in.",
+    era: "Action Arms Model A",
+    note: "Pre-ban 9mm. Original Israeli manufacture by Action Arms. Once the ban hit, these stopped coming in.",
     value: "$3,200",
     daily: "$64/day",
+    image: "/guns/imi-uzi.jpeg",
   },
   {
-    name: "HK P7M8",
-    era: "1982-2008",
-    note: "Squeeze-cocker. This design doesn't exist in production anymore.",
-    value: "$2,800",
-    daily: "$56/day",
+    name: "S&W Model 39-2",
+    era: "Discontinued 1983",
+    note: "First-gen S&W semi-auto 9mm. The platform behind the Navy 'Hush Puppy.' Not made since '83.",
+    value: "$550",
+    daily: "$11/day",
+    image: "/guns/sw-model-39-2.jpeg",
   },
   {
-    name: "Winchester Model 70",
-    era: "Pre-'64 Action",
-    note: "Controlled-round feed. The bolt action collectors have been hunting for decades.",
-    value: "$3,400",
-    daily: "$68/day",
+    name: "Ruger 10/22 Takedown",
+    era: "Camo / Leupold",
+    note: "The most customized .22 in America — this one came ready with glass from Leupold.",
+    value: "$800",
+    daily: "$16/day",
+    image: "/guns/ruger-10-22-takedown.jpeg",
   },
   {
-    name: "Browning Hi-Power",
-    era: "FN Manufacture",
-    note: "Last Browning design. The single-action 9mm that armed half the world.",
-    value: "$2,200",
-    daily: "$44/day",
+    name: "ATI GSG-5",
+    era: "German Sport Guns",
+    note: "MP5 platform in .22 LR. German-engineered, American-imported. Train like a pro.",
+    value: "$600",
+    daily: "$12/day",
+    image: "/guns/ati-gsg5.jpeg",
   },
   {
-    name: "SIG P210",
-    era: "Swiss Production",
-    note: "Swiss-made. Target-grade accuracy out of the box. Production ended.",
-    value: "$3,800",
-    daily: "$76/day",
+    name: "Emperor Duke",
+    era: "12GA Pump",
+    note: "Birdshead grip, nickel finish, wood furniture. 12-gauge authority that turns heads.",
+    value: "$500",
+    daily: "$10/day",
+    image: "/guns/emperor-duke.jpeg",
+  },
+  {
+    name: "Ruger Bearcat",
+    era: "Shopkeeper",
+    note: "Birdshead grip, engraved cylinder, stainless. The small revolver with big character.",
+    value: "$700",
+    daily: "$14/day",
+    image: "/guns/ruger-bearcat.jpeg",
   },
 ];
 
@@ -331,17 +337,14 @@ function GunCard({ gun, index }: { gun: (typeof COLLECTION)[0]; index: number })
         transition: { type: "spring", stiffness: 300, damping: 20 },
       }}
     >
-      {/* Image placeholder */}
       <div className="relative aspect-[4/3] overflow-hidden" style={{ backgroundColor: "#EDE8E0" }}>
-        <motion.div
-          className="absolute inset-0 flex items-center justify-center"
+        <motion.img
+          src={gun.image}
+          alt={gun.name}
+          className="absolute inset-0 w-full h-full object-cover"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.5 }}
-        >
-          <svg className="w-16 h-16" fill="none" viewBox="0 0 24 24" stroke="#C4BAA8" strokeWidth={0.8}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-        </motion.div>
+        />
         {/* Availability badge */}
         <div
           className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold"
