@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Inter } from "next/font/google";
+import { Bebas_Neue, Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 const bebasNeue = Bebas_Neue({
@@ -11,6 +11,12 @@ const bebasNeue = Bebas_Neue({
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
   display: "swap",
 });
@@ -35,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${bebasNeue.variable} ${inter.variable} antialiased`}
+        className={`${bebasNeue.variable} ${inter.variable} ${playfair.variable} antialiased`}
       >
         {children}
       </body>

@@ -13,23 +13,28 @@ import { useEffect, useRef, useState, ReactNode } from "react";
    COLLECTOR'S CORNER — Rentagun Landing Page
    Route: /collectors-corner
    All CTAs → /product-category/collectors-corner/
-   Design: Matches rentagun.com white/red theme
+   Design: White/red brand + study/man cave warmth
    ───────────────────────────────────────────── */
 
-// ── Design tokens (matching rentagun.com) ───
+// ── Design tokens ───────────────────────────
 const C = {
-  bg: "#FFFFFF",
-  bgAlt: "#F5F5F5",
+  bg: "#FAF8F5",
+  bgWhite: "#FFFFFF",
+  bgAlt: "#F3F0EB",
   surface: "#FFFFFF",
   heading: "#1A1A1A",
-  body: "#555555",
-  bodyLight: "#777777",
-  border: "#E5E5E5",
+  body: "#4A4A4A",
+  bodyLight: "#6B6B6B",
+  border: "#E8E3DC",
   red: "#CC0000",
   redHover: "#B00000",
   green: "#4CAF50",
-  dark: "#1A1A1A",
-  darkBg: "#222222",
+  brass: "#B8860B",
+  brassLight: "#D4A84220",
+  walnut: "#2C1810",
+  walnutLight: "#3D2415",
+  warmShadow: "0 2px 8px rgba(44,24,16,0.06), 0 8px 24px rgba(44,24,16,0.04)",
+  warmShadowHover: "0 8px 30px rgba(44,24,16,0.12), 0 2px 8px rgba(44,24,16,0.06)",
 };
 
 // ── Animation variants ──────────────────────
@@ -57,13 +62,9 @@ const stagger = {
 // ── Animated counter ────────────────────────
 function Counter({
   target,
-  prefix = "",
-  suffix = "",
   className = "",
 }: {
   target: number;
-  prefix?: string;
-  suffix?: string;
   className?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -87,10 +88,25 @@ function Counter({
 
   return (
     <span ref={ref} className={className}>
-      {prefix}
       {val}
-      {suffix}
     </span>
+  );
+}
+
+// ── Brass divider ───────────────────────────
+function BrassDivider() {
+  return (
+    <motion.div
+      className="flex items-center justify-center gap-3 py-2"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+    >
+      <div className="h-px w-16" style={{ backgroundColor: C.brass, opacity: 0.3 }} />
+      <div className="w-1.5 h-1.5 rotate-45" style={{ backgroundColor: C.brass, opacity: 0.4 }} />
+      <div className="h-px w-16" style={{ backgroundColor: C.brass, opacity: 0.3 }} />
+    </motion.div>
   );
 }
 
@@ -99,14 +115,14 @@ const COLLECTION = [
   {
     name: "Colt Python",
     era: "1955-2005",
-    note: "Original royal blue finish. The snake gun.",
+    note: "Original royal blue finish. The snake gun that started the collector craze.",
     value: "$4,500",
     daily: "$90/day",
   },
   {
     name: "IMI UZI",
     era: "Pre-ban Import",
-    note: "Original Israeli manufacture. Not coming back.",
+    note: "Original Israeli manufacture. Once the ban hit, these stopped coming in.",
     value: "$3,200",
     daily: "$64/day",
   },
@@ -120,21 +136,21 @@ const COLLECTION = [
   {
     name: "Winchester Model 70",
     era: "Pre-'64 Action",
-    note: "Controlled-round feed. The one collectors hunt.",
+    note: "Controlled-round feed. The bolt action collectors have been hunting for decades.",
     value: "$3,400",
     daily: "$68/day",
   },
   {
     name: "Browning Hi-Power",
     era: "FN Manufacture",
-    note: "Last Browning design. Classic single-action 9mm.",
+    note: "Last Browning design. The single-action 9mm that armed half the world.",
     value: "$2,200",
     daily: "$44/day",
   },
   {
     name: "SIG P210",
     era: "Swiss Production",
-    note: "Swiss-made. Target-grade accuracy. Production ended.",
+    note: "Swiss-made. Target-grade accuracy out of the box. Production ended.",
     value: "$3,800",
     daily: "$76/day",
   },
@@ -296,37 +312,42 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   );
 }
 
-// ── Gun card (matching rentagun card style) ─
+// ── Gun card ────────────────────────────────
 function GunCard({ gun, index }: { gun: (typeof COLLECTION)[0]; index: number }) {
   return (
     <motion.a
       href="/product-category/collectors-corner/"
-      className="group block rounded-lg overflow-hidden cursor-pointer bg-white"
+      className="group block rounded-lg overflow-hidden cursor-pointer"
       style={{
-        boxShadow: "0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04)",
+        backgroundColor: C.bgWhite,
+        boxShadow: C.warmShadow,
+        border: `1px solid ${C.border}`,
       }}
       variants={fadeUp}
       custom={index * 0.08}
       whileHover={{
         y: -4,
-        boxShadow: "0 8px 30px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)",
+        boxShadow: C.warmShadowHover,
         transition: { type: "spring", stiffness: 300, damping: 20 },
       }}
     >
       {/* Image placeholder */}
-      <div className="relative aspect-[4/3] overflow-hidden" style={{ backgroundColor: "#F0F0F0" }}>
+      <div className="relative aspect-[4/3] overflow-hidden" style={{ backgroundColor: "#EDE8E0" }}>
         <motion.div
           className="absolute inset-0 flex items-center justify-center"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.5 }}
         >
-          <svg className="w-16 h-16 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          <svg className="w-16 h-16" fill="none" viewBox="0 0 24 24" stroke="#C4BAA8" strokeWidth={0.8}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
         </motion.div>
         {/* Availability badge */}
-        <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-green-50 text-green-700">
-          <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
+        <div
+          className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold"
+          style={{ backgroundColor: "rgba(184,134,11,0.1)", color: C.brass }}
+        >
+          <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: C.brass }} />
           Available
         </div>
       </div>
@@ -334,11 +355,20 @@ function GunCard({ gun, index }: { gun: (typeof COLLECTION)[0]; index: number })
       <div className="p-5">
         <div className="flex items-start justify-between mb-1">
           <h3 className="text-lg font-bold" style={{ color: C.heading }}>{gun.name}</h3>
-          <span className="text-xs font-semibold px-2.5 py-1 rounded-full flex-shrink-0 ml-3 bg-red-50" style={{ color: C.red }}>
+          <span
+            className="text-xs font-semibold px-2.5 py-1 rounded-full flex-shrink-0 ml-3"
+            style={{ backgroundColor: C.brassLight, color: C.brass }}
+          >
             {gun.era}
           </span>
         </div>
-        <p className="text-sm mb-4" style={{ color: C.bodyLight }}>{gun.note}</p>
+        {/* Curator note in serif */}
+        <p
+          className="text-sm italic mb-4"
+          style={{ color: C.bodyLight, fontFamily: "var(--font-playfair), Georgia, serif" }}
+        >
+          &ldquo;{gun.note}&rdquo;
+        </p>
         <div className="flex items-end justify-between mb-4">
           <div>
             <p className="text-xs uppercase tracking-wider mb-0.5" style={{ color: C.bodyLight }}>Market Value</p>
@@ -377,23 +407,33 @@ export default function CollectorsCorner() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: C.bg, color: C.body }}>
 
-      {/* ── HERO (dark with forest bg placeholder) ── */}
+      {/* ── HERO (walnut dark with warm overlay) ── */}
       <div ref={heroRef}>
-        <section className="relative min-h-[70vh] flex items-center justify-center px-6 overflow-hidden"
-          style={{ backgroundColor: "#1A1A1A" }}
+        <section
+          className="relative min-h-[70vh] flex items-center justify-center px-6 overflow-hidden"
+          style={{ backgroundColor: C.walnut }}
         >
-          {/* Background overlay gradient */}
+          {/* Warm dark overlay */}
           <div className="absolute inset-0" style={{
-            background: "linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.7))",
+            background: "linear-gradient(to bottom, rgba(44,24,16,0.6), rgba(44,24,16,0.8))",
+          }} />
+          {/* Subtle warm vignette */}
+          <div className="absolute inset-0" style={{
+            background: "radial-gradient(ellipse at center, transparent 40%, rgba(44,24,16,0.4) 100%)",
           }} />
 
           <motion.div className="relative z-10 text-center max-w-4xl mx-auto" style={{ opacity: heroOpacity }}>
-            <motion.p
-              className="text-xs tracking-[0.3em] uppercase mb-6 text-white/50"
+            {/* Brass ornament */}
+            <motion.div
+              className="flex items-center justify-center gap-3 mb-6"
               variants={fadeUp} initial="hidden" animate="visible" custom={0}
             >
-              A Rentagun Collection
-            </motion.p>
+              <div className="h-px w-12" style={{ backgroundColor: C.brass, opacity: 0.5 }} />
+              <p className="text-xs tracking-[0.35em] uppercase" style={{ color: C.brass }}>
+                A Rentagun Collection
+              </p>
+              <div className="h-px w-12" style={{ backgroundColor: C.brass, opacity: 0.5 }} />
+            </motion.div>
 
             <motion.h1
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6"
@@ -404,7 +444,8 @@ export default function CollectorsCorner() {
             </motion.h1>
 
             <motion.p
-              className="text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-10 text-white/70"
+              className="text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-10"
+              style={{ color: "rgba(255,255,255,0.7)", fontFamily: "var(--font-playfair), Georgia, serif" }}
               variants={fadeUp} initial="hidden" animate="visible" custom={0.3}
             >
               Discontinued. Hard to find. Impossible to buy new.
@@ -420,8 +461,9 @@ export default function CollectorsCorner() {
               <motion.a
                 href="#how-it-works"
                 className="inline-flex items-center justify-center text-sm font-bold tracking-wide uppercase
-                  border-2 border-white/30 text-white/80 rounded-md px-8 py-4 cursor-pointer"
-                whileHover={{ borderColor: "rgba(255,255,255,0.6)", color: "#FFFFFF" }}
+                  border-2 rounded-md px-8 py-4 cursor-pointer"
+                style={{ borderColor: "rgba(184,134,11,0.4)", color: "rgba(255,255,255,0.7)" }}
+                whileHover={{ borderColor: C.brass, color: "#FFFFFF" }}
                 transition={{ duration: 0.15 }}
               >
                 How It Works
@@ -429,7 +471,8 @@ export default function CollectorsCorner() {
             </motion.div>
 
             <motion.p
-              className="text-xs tracking-[0.15em] uppercase text-white/40"
+              className="text-xs tracking-[0.15em] uppercase"
+              style={{ color: "rgba(184,134,11,0.5)" }}
               variants={fadeUp} initial="hidden" animate="visible" custom={0.55}
             >
               Licensed FFL &middot; ATF Compliant &middot; Protected Shipping &middot; Free Returns
@@ -445,10 +488,11 @@ export default function CollectorsCorner() {
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}
           variants={fadeUp} custom={0}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: C.heading, fontFamily: "var(--font-bebas), sans-serif" }}>
+          <BrassDivider />
+          <h2 className="text-3xl md:text-4xl font-bold mb-3 mt-4" style={{ color: C.heading, fontFamily: "var(--font-bebas), sans-serif" }}>
             What&apos;s in the Corner
           </h2>
-          <p className="text-base" style={{ color: C.bodyLight }}>
+          <p className="text-base" style={{ color: C.bodyLight, fontFamily: "var(--font-playfair), Georgia, serif" }}>
             Rare and discontinued firearms, curated for shooters who know what they&apos;re looking at.
           </p>
         </motion.div>
@@ -458,16 +502,16 @@ export default function CollectorsCorner() {
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}
         >
           {[
-            { icon: "M5 13l4 4L19 7", text: "Pre-ban imports that aren't coming back" },
-            { icon: "M5 13l4 4L19 7", text: "Discontinued models collectors hunt for years" },
-            { icon: "M5 13l4 4L19 7", text: "Guns you've read about but never seen in person" },
-            { icon: "M5 13l4 4L19 7", text: "The stuff your local shop doesn't have" },
-          ].map((item, i) => (
+            "Pre-ban imports that aren't coming back",
+            "Discontinued models collectors hunt for years",
+            "Guns you've read about but never seen in person",
+            "The stuff your local shop doesn't have",
+          ].map((text, i) => (
             <motion.div key={i} className="flex items-start gap-3" variants={fadeUp} custom={i * 0.08}>
-              <svg className="w-5 h-5 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke={C.red} strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
+              <svg className="w-5 h-5 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke={C.brass} strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
               </svg>
-              <p className="text-base" style={{ color: C.body }}>{item.text}</p>
+              <p className="text-base" style={{ color: C.body }}>{text}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -482,51 +526,94 @@ export default function CollectorsCorner() {
         </motion.p>
       </Section>
 
-      {/* ── COLLECTION GRID ──────────────── */}
-      <Section bg={C.bgAlt}>
-        <motion.div
-          className="text-center mb-4"
-          initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}
-          variants={fadeUp} custom={0}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold" style={{ color: C.heading, fontFamily: "var(--font-bebas), sans-serif" }}>
-            The Collection
-          </h2>
-          <p className="text-base mt-2" style={{ color: C.bodyLight }}>
-            Rare and discontinued firearms available to rent right now.
-          </p>
-        </motion.div>
+      {/* ── COLLECTION GRID (walnut banner header) ── */}
+      <section className="relative">
+        {/* Walnut banner */}
+        <div className="py-10 px-6 text-center" style={{ backgroundColor: C.walnut }}>
+          <motion.div
+            initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp} custom={0}
+          >
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <div className="h-px w-8" style={{ backgroundColor: C.brass, opacity: 0.4 }} />
+              <p className="text-xs tracking-[0.3em] uppercase" style={{ color: C.brass }}>Currently Available</p>
+              <div className="h-px w-8" style={{ backgroundColor: C.brass, opacity: 0.4 }} />
+            </div>
+            <h2
+              className="text-3xl md:text-4xl font-bold text-white"
+              style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+            >
+              The Collection
+            </h2>
+            <p className="text-sm mt-2" style={{ color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-playfair), Georgia, serif" }}>
+              Rare and discontinued firearms available to rent right now.
+            </p>
+          </motion.div>
+        </div>
 
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12"
-          initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}
-        >
-          {COLLECTION.map((gun, i) => (
-            <GunCard key={gun.name} gun={gun} index={i} />
-          ))}
-        </motion.div>
+        {/* Cards on warm background */}
+        <div className="py-12 px-6" style={{ backgroundColor: C.bgAlt }}>
+          <div className="max-w-6xl mx-auto">
+            {/* Curator's Note callout */}
+            <motion.div
+              className="max-w-2xl mx-auto mb-12 px-8 py-6 rounded-lg text-center"
+              style={{
+                backgroundColor: "#FAF6EF",
+                border: `1px solid ${C.border}`,
+                boxShadow: "inset 0 1px 3px rgba(44,24,16,0.03)",
+              }}
+              initial="hidden" whileInView="visible" viewport={{ once: true }}
+              variants={fadeUp} custom={0.05}
+            >
+              <p className="text-xs tracking-[0.2em] uppercase mb-2 font-bold" style={{ color: C.brass }}>
+                Curator&apos;s Note
+              </p>
+              <p
+                className="text-base leading-relaxed italic"
+                style={{ color: C.body, fontFamily: "var(--font-playfair), Georgia, serif" }}
+              >
+                &ldquo;Every piece in this collection was chosen because it represents something that can&apos;t be
+                made again. These aren&apos;t reproductions. They&apos;re the real thing — maintained, inspected,
+                and ready to run.&rdquo;
+              </p>
+            </motion.div>
 
-        <motion.div
-          className="text-center mt-12"
-          initial="hidden" whileInView="visible" viewport={{ once: true }}
-          variants={fadeUp} custom={0.3}
-        >
-          <RedButton href="/product-category/collectors-corner/">
-            Browse the Full Collection
-          </RedButton>
-          <p className="text-sm mt-4" style={{ color: C.bodyLight }}>
-            New pieces added as trade-ins qualify.
-          </p>
-        </motion.div>
-      </Section>
+            <motion.div
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+              initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}
+            >
+              {COLLECTION.map((gun, i) => (
+                <GunCard key={gun.name} gun={gun} index={i} />
+              ))}
+            </motion.div>
+
+            <motion.div
+              className="text-center mt-12"
+              initial="hidden" whileInView="visible" viewport={{ once: true }}
+              variants={fadeUp} custom={0.3}
+            >
+              <RedButton href="/product-category/collectors-corner/">
+                Browse the Full Collection
+              </RedButton>
+              <p className="text-sm mt-4" style={{ color: C.bodyLight }}>
+                New pieces added as trade-ins qualify.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       {/* ── THE PROBLEM ──────────────────── */}
       <Section>
         <div className="max-w-3xl mx-auto">
+          <motion.div className="mb-8" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
+            <BrassDivider />
+          </motion.div>
+
           <motion.h2
             className="text-3xl md:text-4xl font-bold leading-tight mb-8"
             style={{ color: C.heading, fontFamily: "var(--font-bebas), sans-serif" }}
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.05}
           >
             Ever dropped $2,000 on a gun<br className="hidden md:block" /> you ended up hating?
           </motion.h2>
@@ -549,10 +636,14 @@ export default function CollectorsCorner() {
           </motion.p>
 
           <motion.div
-            className="relative pl-6 py-4 mb-8 rounded-r-md" style={{ borderLeft: `4px solid ${C.red}`, backgroundColor: "#FFF5F5" }}
+            className="relative pl-6 py-5 mb-8 rounded-r-md"
+            style={{ borderLeft: `4px solid ${C.brass}`, backgroundColor: "#FAF6EF" }}
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.2}
           >
-            <p className="text-lg md:text-xl font-bold leading-snug" style={{ color: C.heading }}>
+            <p
+              className="text-lg md:text-xl font-bold leading-snug"
+              style={{ color: C.heading }}
+            >
               What if you could shoot it first?<br />Really shoot it. For a week.
             </p>
           </motion.div>
@@ -567,7 +658,7 @@ export default function CollectorsCorner() {
         </div>
       </Section>
 
-      {/* ── DO THE MATH (Buy vs Rent — matching site style) ── */}
+      {/* ── DO THE MATH (Buy vs Rent) ────── */}
       <Section bg={C.bgAlt}>
         <motion.div
           className="text-center mb-12"
@@ -586,23 +677,20 @@ export default function CollectorsCorner() {
             {/* Buy Blind */}
             <motion.div
               className="rounded-l-lg p-8 flex flex-col justify-between"
-              style={{ backgroundColor: C.darkBg }}
+              style={{ backgroundColor: C.walnut }}
               initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.1}
             >
               <div>
-                <p className="text-xs tracking-[0.2em] uppercase mb-6 text-white/50 font-bold">Buying Blind</p>
+                <p className="text-xs tracking-[0.2em] uppercase mb-6 font-bold" style={{ color: C.brass }}>Buying Blind</p>
                 <p className="text-white/80 text-sm leading-relaxed mb-6">
-                  $2,200 gun. Put 50 rounds through it. Hate the balance.
-                  Sell it for $1,600.
+                  $2,200 gun. Put 50 rounds through it. Hate the balance. Sell it for $1,600.
                 </p>
                 <p className="text-white font-bold text-sm mb-2">Trusted - but only once you&apos;ve zeroed it</p>
                 <p className="text-white font-bold text-sm mb-2">Clean, sight, and pack it yourself</p>
                 <p className="text-white font-bold text-sm mb-2">One setup, stuck with it all year</p>
               </div>
               <div className="mt-6">
-                <p className="text-white font-bold text-lg">
-                  $1,500 - $2,500 + upfront
-                </p>
+                <p className="text-white font-bold text-lg">$1,500 - $2,500 + upfront</p>
                 <div style={{ fontFamily: "var(--font-bebas), sans-serif", color: C.red }}
                   className="text-5xl md:text-6xl mt-2">
                   &ndash;$<Counter target={600} />
@@ -616,8 +704,10 @@ export default function CollectorsCorner() {
               style={{ backgroundColor: C.bgAlt }}
               initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.15}
             >
-              <div className="w-12 h-12 rounded-full flex items-center justify-center font-black text-sm"
-                style={{ backgroundColor: C.bg, color: C.heading, boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}>
+              <div
+                className="w-12 h-12 rounded-full flex items-center justify-center font-black text-sm"
+                style={{ backgroundColor: C.bgWhite, color: C.heading, boxShadow: C.warmShadow }}
+              >
                 VS
               </div>
             </motion.div>
@@ -631,8 +721,7 @@ export default function CollectorsCorner() {
               <div>
                 <p className="text-xs tracking-[0.2em] uppercase mb-6 text-white/60 font-bold">Renting with Rentagun</p>
                 <p className="text-white/90 text-sm leading-relaxed mb-6">
-                  Same gun. $44/day rental. Shoot it for a week.
-                  Know exactly what you&apos;re getting.
+                  Same gun. $44/day rental. Shoot it for a week. Know exactly what you&apos;re getting.
                 </p>
                 <p className="text-white font-bold text-sm mb-2">Pre-inspected and ready to shoot</p>
                 <p className="text-white font-bold text-sm mb-2">Arrives ready. Just grab and go.</p>
@@ -650,8 +739,10 @@ export default function CollectorsCorner() {
 
           {/* Mobile VS */}
           <div className="flex md:hidden justify-center -my-4 relative z-10">
-            <div className="w-12 h-12 rounded-full flex items-center justify-center font-black text-sm bg-white"
-              style={{ color: C.heading, boxShadow: "0 2px 8px rgba(0,0,0,0.15)" }}>
+            <div
+              className="w-12 h-12 rounded-full flex items-center justify-center font-black text-sm"
+              style={{ backgroundColor: C.bgWhite, color: C.heading, boxShadow: C.warmShadow }}
+            >
               VS
             </div>
           </div>
@@ -670,13 +761,14 @@ export default function CollectorsCorner() {
         </motion.div>
       </Section>
 
-      {/* ── HOW IT WORKS (matching site red circle icons) ── */}
+      {/* ── HOW IT WORKS ─────────────────── */}
       <Section id="how-it-works">
         <motion.div
           className="text-center mb-14"
           initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
         >
-          <h2 className="text-3xl md:text-4xl font-bold" style={{ color: C.heading, fontFamily: "var(--font-bebas), sans-serif" }}>
+          <BrassDivider />
+          <h2 className="text-3xl md:text-4xl font-bold mt-4" style={{ color: C.heading, fontFamily: "var(--font-bebas), sans-serif" }}>
             How It Works
           </h2>
         </motion.div>
@@ -741,17 +833,24 @@ export default function CollectorsCorner() {
           ].map((card, i) => (
             <motion.div
               key={card.title}
-              className="bg-white rounded-lg p-8 h-full"
-              style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04)" }}
+              className="rounded-lg p-8 h-full"
+              style={{
+                backgroundColor: C.bgWhite,
+                boxShadow: C.warmShadow,
+                border: `1px solid ${C.border}`,
+              }}
               variants={fadeUp} custom={i * 0.1}
               whileHover={{
                 y: -3,
-                boxShadow: "0 8px 30px rgba(0,0,0,0.1)",
+                boxShadow: C.warmShadowHover,
                 transition: { type: "spring", stiffness: 300, damping: 20 },
               }}
             >
-              <div className="w-10 h-10 rounded-full flex items-center justify-center mb-4" style={{ backgroundColor: "#FFF0F0" }}>
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke={C.red} strokeWidth={2}>
+              <div
+                className="w-10 h-10 rounded-full flex items-center justify-center mb-4"
+                style={{ backgroundColor: C.brassLight }}
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke={C.brass} strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d={card.icon} />
                 </svg>
               </div>
@@ -765,10 +864,14 @@ export default function CollectorsCorner() {
       {/* ── TRADE-IN ─────────────────────── */}
       <Section>
         <div className="max-w-3xl mx-auto text-center">
+          <motion.div className="mb-6" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
+            <BrassDivider />
+          </motion.div>
+
           <motion.h2
             className="text-3xl md:text-4xl font-bold mb-6"
             style={{ color: C.heading, fontFamily: "var(--font-bebas), sans-serif" }}
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.05}
           >
             Gun in the safe collecting dust?
           </motion.h2>
@@ -789,7 +892,8 @@ export default function CollectorsCorner() {
           </motion.p>
 
           <motion.p
-            className="text-base font-bold mb-8" style={{ color: C.heading }}
+            className="text-base font-bold mb-8 italic"
+            style={{ color: C.heading, fontFamily: "var(--font-playfair), Georgia, serif" }}
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.2}
           >
             Your old gun becomes someone else&apos;s range day.
@@ -815,8 +919,8 @@ export default function CollectorsCorner() {
           </motion.h2>
 
           <motion.div
-            className="bg-white rounded-lg overflow-hidden"
-            style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.06)" }}
+            className="rounded-lg overflow-hidden"
+            style={{ backgroundColor: C.bgWhite, boxShadow: C.warmShadow, border: `1px solid ${C.border}` }}
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.1}
           >
             <div className="px-6">
@@ -860,7 +964,8 @@ export default function CollectorsCorner() {
         </div>
 
         <motion.p
-          className="text-center text-sm mt-8" style={{ color: C.bodyLight }}
+          className="text-center text-sm mt-8 italic"
+          style={{ color: C.bodyLight, fontFamily: "var(--font-playfair), Georgia, serif" }}
           initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.3}
         >
           Not just legal. Professional. Compliant. Trusted.
@@ -868,17 +973,18 @@ export default function CollectorsCorner() {
       </Section>
 
       {/* ── FINAL CTA ────────────────────── */}
-      <section className="relative py-20 md:py-28 px-6 text-center" style={{ backgroundColor: C.bgAlt }}>
+      <section className="relative py-20 md:py-28 px-6 text-center" style={{ backgroundColor: C.walnut }}>
         <div className="max-w-3xl mx-auto">
           <motion.p
-            className="text-base mb-4" style={{ color: C.bodyLight }}
+            className="text-base mb-4 italic"
+            style={{ color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-playfair), Georgia, serif" }}
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
           >
             Rare firearms. Ready to ship.
           </motion.p>
           <motion.h2
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8"
-            style={{ color: C.heading, fontFamily: "var(--font-bebas), sans-serif" }}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 text-white"
+            style={{ fontFamily: "var(--font-bebas), sans-serif" }}
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.1}
           >
             Shoot the guns you&apos;ve<br />only <span style={{ color: C.red }}>heard about.</span>
@@ -891,7 +997,7 @@ export default function CollectorsCorner() {
             </RedButton>
           </motion.div>
           <motion.p
-            className="text-sm mt-5" style={{ color: C.bodyLight }}
+            className="text-sm mt-5" style={{ color: "rgba(184,134,11,0.5)" }}
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.3}
           >
             Free return shipping. No questions asked.
