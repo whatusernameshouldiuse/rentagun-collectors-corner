@@ -606,7 +606,7 @@ export default function CollectorsCorner() {
         </div>
       </section>
 
-      {/* ── THE PROBLEM ──────────────────── */}
+      {/* ── THE HOOK ──────────────────────── */}
       <Section>
         <div className="max-w-3xl mx-auto">
           <motion.div className="mb-8" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
@@ -618,24 +618,23 @@ export default function CollectorsCorner() {
             style={{ color: C.heading, fontFamily: "var(--font-bebas), sans-serif" }}
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.05}
           >
-            Ever dropped $2,000 on a gun<br className="hidden md:block" /> you ended up hating?
+            You&apos;ve wanted to shoot this gun<br className="hidden md:block" /> since you were 12.
           </motion.h2>
 
           <motion.p
             className="text-base leading-relaxed mb-5" style={{ color: C.body }}
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.1}
           >
-            You watch the reviews. You read the forums. You handle it at the counter for 30 seconds.
-            Then you buy it, take it to the range, and realize the balance is wrong, the trigger pull
-            isn&apos;t what you expected, or it just doesn&apos;t feel like yours.
+            You saw it in the movie. You watched your favorite YouTuber run 500 rounds through one.
+            You&apos;ve read every forum post, watched every review, and you already know the specs by heart.
           </motion.p>
 
           <motion.p
             className="text-base leading-relaxed mb-8" style={{ color: C.body }}
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.15}
           >
-            Now you&apos;re listing it on GunBroker for $400 less than you paid, waiting two weeks
-            for a buyer who lowballs you anyway.
+            But you&apos;ve never actually held one. Never felt the weight. Never pulled the trigger.
+            It&apos;s been on your list for years — and no local range has one.
           </motion.p>
 
           <motion.div
@@ -647,7 +646,7 @@ export default function CollectorsCorner() {
               className="text-lg md:text-xl font-bold leading-snug"
               style={{ color: C.heading }}
             >
-              What if you could shoot it first?<br />Really shoot it. For a week.
+              Now you can. Not for 15 minutes at a counter.<br />For a week. At your range. On your terms.
             </p>
           </motion.div>
 
@@ -655,8 +654,8 @@ export default function CollectorsCorner() {
             className="text-base" style={{ color: C.body }}
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.25}
           >
-            That&apos;s what Collector&apos;s Corner is. 7-30 days with rare firearms.
-            Shipped to your FFL. Free return shipping.
+            Collector&apos;s Corner puts the guns you&apos;ve always wanted to shoot
+            in your hands. Shipped to your FFL. 7-30 days. Free return shipping.
           </motion.p>
         </div>
       </Section>
@@ -671,32 +670,32 @@ export default function CollectorsCorner() {
             Do the Math
           </h2>
           <p className="text-base mt-2" style={{ color: C.bodyLight }}>
-            Don&apos;t waste $2,000+. Rent the exact gun you want.
+            Shoot the dream gun. Skip the price tag.
           </p>
         </motion.div>
 
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-[1fr,auto,1fr] gap-0 items-stretch">
-            {/* Buy Blind */}
+            {/* Buying It */}
             <motion.div
               className="rounded-l-lg p-8 flex flex-col justify-between"
               style={{ backgroundColor: C.walnut }}
               initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.1}
             >
               <div>
-                <p className="text-xs tracking-[0.2em] uppercase mb-6 font-bold" style={{ color: C.brass }}>Buying Blind</p>
+                <p className="text-xs tracking-[0.2em] uppercase mb-6 font-bold" style={{ color: C.brass }}>Buying It</p>
                 <p className="text-white/80 text-sm leading-relaxed mb-6">
-                  $2,200 gun. Put 50 rounds through it. Hate the balance. Sell it for $1,600.
+                  Hunt GunBroker for months. Pay collector markup. Hope the condition matches the listing.
                 </p>
-                <p className="text-white font-bold text-sm mb-2">Trusted - but only once you&apos;ve zeroed it</p>
-                <p className="text-white font-bold text-sm mb-2">Clean, sight, and pack it yourself</p>
-                <p className="text-white font-bold text-sm mb-2">One setup, stuck with it all year</p>
+                <p className="text-white font-bold text-sm mb-2">Months of searching and bidding</p>
+                <p className="text-white font-bold text-sm mb-2">Collector premium on top of market value</p>
+                <p className="text-white font-bold text-sm mb-2">One gun, one experience, all your budget</p>
               </div>
               <div className="mt-6">
-                <p className="text-white font-bold text-lg">$1,500 - $2,500 + upfront</p>
+                <p className="text-white font-bold text-lg">Collector price tag</p>
                 <div style={{ fontFamily: "var(--font-bebas), sans-serif", color: C.red }}
                   className="text-5xl md:text-6xl mt-2">
-                  &ndash;$<Counter target={600} />
+                  $<Counter target={3200} />+
                 </div>
               </div>
             </motion.div>
@@ -715,26 +714,26 @@ export default function CollectorsCorner() {
               </div>
             </motion.div>
 
-            {/* Rent First */}
+            {/* Renting It */}
             <motion.div
               className="rounded-r-lg p-8 flex flex-col justify-between"
               style={{ backgroundColor: C.red }}
               initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.2}
             >
               <div>
-                <p className="text-xs tracking-[0.2em] uppercase mb-6 text-white/60 font-bold">Renting with Rentagun</p>
+                <p className="text-xs tracking-[0.2em] uppercase mb-6 text-white/60 font-bold">Renting It</p>
                 <p className="text-white/90 text-sm leading-relaxed mb-6">
-                  Same gun. $44/day rental. Shoot it for a week. Know exactly what you&apos;re getting.
+                  Pick it today. It ships to your FFL. Spend a week doing what you&apos;ve been dreaming about.
                 </p>
-                <p className="text-white font-bold text-sm mb-2">Pre-inspected and ready to shoot</p>
-                <p className="text-white font-bold text-sm mb-2">Arrives ready. Just grab and go.</p>
-                <p className="text-white font-bold text-sm mb-2">Pick the right gun for every mood</p>
+                <p className="text-white font-bold text-sm mb-2">Available now — no hunting required</p>
+                <p className="text-white font-bold text-sm mb-2">Pre-inspected. Arrives ready to shoot.</p>
+                <p className="text-white font-bold text-sm mb-2">Try a different dream gun every month</p>
               </div>
               <div className="mt-6">
-                <p className="text-white font-bold text-lg">Starting at just</p>
+                <p className="text-white font-bold text-lg">A week with the UZI</p>
                 <div style={{ fontFamily: "var(--font-bebas), sans-serif" }}
                   className="text-5xl md:text-6xl text-white mt-2">
-                  $<Counter target={308} />
+                  $<Counter target={448} />
                 </div>
               </div>
             </motion.div>
@@ -756,10 +755,10 @@ export default function CollectorsCorner() {
           initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.3}
         >
           <p className="text-xl font-bold mb-2" style={{ color: C.heading, fontFamily: "var(--font-bebas), sans-serif" }}>
-            Renting is cheaper than being wrong.
+            Shoot the bucket list. Not the budget.
           </p>
           <p className="text-sm" style={{ color: C.bodyLight }}>
-            7-30 days. Free return shipping. No questions asked.
+            7-30 days. Free return shipping. Different gun next month.
           </p>
         </motion.div>
       </Section>
