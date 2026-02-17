@@ -5,7 +5,6 @@ import {
   useScroll,
   useTransform,
   useInView,
-  AnimatePresence,
 } from "framer-motion";
 import { useEffect, useRef, useState, ReactNode } from "react";
 
@@ -201,14 +200,6 @@ const STEPS = [
   },
 ];
 
-const FAQS = [
-  { q: "How much does it cost?", a: "2% of the gun's current market value per day. A $2,200 gun rents for $44/day. No hidden fees." },
-  { q: "How long is the rental period?", a: "7 to 30 days. You pick when you book. Enough time to actually shoot it - not just hold it at a counter." },
-  { q: "How do returns work?", a: "Prepaid return label in the box. Drop it off at FedEx. We handle the FFL transfer back. Free return shipping." },
-  { q: "What condition are these in?", a: "Every firearm is inspected and function-tested before it ships. Collector-grade pieces, well-maintained and ready to shoot." },
-  { q: "Can I trade in a gun?", a: "Most firearms, yes. We evaluate condition and market value, then make you a store credit offer within 48 hours." },
-  { q: "What if I want to buy it?", a: "Some pieces are available for purchase. Contact us. But most people rent for the experience." },
-];
 
 // ── Buttons ─────────────────────────────────
 function RedButton({
@@ -276,45 +267,6 @@ function Section({
     <section id={id} className={`relative py-16 md:py-24 px-6 ${className}`} style={{ backgroundColor: bg }}>
       <div className="max-w-6xl mx-auto">{children}</div>
     </section>
-  );
-}
-
-// ── FAQ item ────────────────────────────────
-function FaqItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="border-b" style={{ borderColor: C.border }}>
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between py-5 text-left cursor-pointer"
-      >
-        <span className="text-base font-semibold" style={{ color: C.heading }}>{q}</span>
-        <motion.svg
-          className="w-5 h-5 flex-shrink-0 ml-4"
-          animate={{ rotate: open ? 180 : 0 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke={C.red}
-          strokeWidth={2}
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-        </motion.svg>
-      </button>
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden"
-          >
-            <p className="pb-5 text-base leading-relaxed" style={{ color: C.body }}>{a}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
   );
 }
 
@@ -905,31 +857,6 @@ export default function CollectorsCorner() {
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.25}
           >
             <OutlineButton>Start Trade-In</OutlineButton>
-          </motion.div>
-        </div>
-      </Section>
-
-      {/* ── FAQ ───────────────────────────── */}
-      <Section bg={C.bgAlt}>
-        <div className="max-w-2xl mx-auto">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold mb-12 text-center"
-            style={{ color: C.heading, fontFamily: "var(--font-bebas), sans-serif" }}
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-          >
-            Questions
-          </motion.h2>
-
-          <motion.div
-            className="rounded-lg overflow-hidden"
-            style={{ backgroundColor: C.bgWhite, boxShadow: C.warmShadow, border: `1px solid ${C.border}` }}
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0.1}
-          >
-            <div className="px-6">
-              {FAQS.map((faq) => (
-                <FaqItem key={faq.q} q={faq.q} a={faq.a} />
-              ))}
-            </div>
           </motion.div>
         </div>
       </Section>
